@@ -15,29 +15,6 @@ pipeline {
                 echo "Build project passed!"
             }
         }
-
-        stage("Docker compose build"){
-            steps {
-                echo 'Docker compose - Downloading...'
-                script {
-                    sshPublisher(
-                        publishers: [
-                            sshPublisherDesc(
-                                configName: 'Build testing CI',
-                                verbose: false,
-                                transfers: [
-                                    sshTransfer(
-                                        execCommand: 'git clone https://github.com/Adityaudi/coffeeshop-jenkinsCICD.git;',
-                                        execTimeout: 120000,
-                                    )
-                                ]
-                            )
-                        ]
-                    )
-                }
-                echo 'Docker compose - Done.'
-            }
-        }
         
         stage('Run Testing frontend') {
             steps {
@@ -106,6 +83,29 @@ pipeline {
                     )
                 }
                 echo 'Pull image frontend - success.'
+            }
+        }
+
+        stage("Docker compose build"){
+            steps {
+                echo 'Docker compose - running.'
+                script {
+                    sshPublisher(
+                        publishers: [
+                            sshPublisherDesc(
+                                configName: 'Build testing CI',
+                                verbose: false,
+                                transfers: [
+                                    sshTransfer(
+                                        execCommand: 'docker-compose up -d;',
+                                        execTimeout: 90000,
+                                    )
+                                ]
+                            )
+                        ]
+                    )
+                }
+                echo 'Docker compose - Success.'
             }
         }
     }    
