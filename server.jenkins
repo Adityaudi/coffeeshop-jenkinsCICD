@@ -1,12 +1,13 @@
 
 pipeline{
     agent any
+    
+    parameters { 
+        booleanParam(name: 'RUNTEST', defaultValue: true, description: 'Toggle this value fro testing')
+        choice(name: 'CICD', choices: ['CI', 'CICD'], description: 'Pick something')
+    }
 
     stages{
-        parameters { 
-            booleanParam(name: 'RUNTEST', defaultValue: true, description: 'Toggle this value fro testing')
-            choice(name: 'CICD', choices: ['CI', 'CICD'], description: 'Pick something')
-        }
         stage("Build project"){
             steps {
                 echo "====++++something++++===="
