@@ -9,7 +9,7 @@ pipeline{
 
     stages{
         stage("Build project"){
-            steps {
+            step {
                 echo "====++++something++++===="
             }
         }
