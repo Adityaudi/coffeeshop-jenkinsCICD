@@ -46,9 +46,9 @@ pipeline {
                     params.BUILDPROJECT == 'OKE' 
                     params.RUNBUILD
                 }
-                steps {
-                    builderDocker.push("${env.GIT_BRANCH}")
-                }
+            }
+            steps {
+                builderDocker.push("${env.GIT_BRANCH}")
             }
         }
 
