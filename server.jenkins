@@ -3,15 +3,15 @@ pipeline{
     agent any
     
     parameters { 
-        text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
-        choice(name: 'BUILD PROJECT', choices: ['CI', 'CICD'], description: 'Pick something')
-        choice(name: 'DEVLOPMENT PROJECT', choices: ['CI', 'CICD'], description: 'Pick something')
-        booleanParam(name: 'Please, accept if true!', defaultValue: true, description: 'Toggle this value fro testing')
+        text(name: 'BUILD Coffeeshop Project', defaultValue: '')
+        choice(name: 'BUILD PROJECT', choices: ['NOT OKE!', 'OKE!'])
+        choice(name: 'DEVLOPMENT PROJECT', choices: ['NOT OKE!', 'OKE'])
+        booleanParam(name: 'YES, IM AGREE!', defaultValue: false,)
     }
 
     stages{
         stage("Build project"){
-            step {
+            steps {
                 echo "====++++something++++===="
             }
         }
