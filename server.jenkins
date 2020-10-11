@@ -1,15 +1,16 @@
 
+pipeline{
     agent any
 
-    parameters { 
+    stages{
+        parameters { 
             booleanParam(name: 'RUNTEST', defaultValue: true, description: 'Toggle this value fro testing')
             choice(name: 'CICD', choices: ['CI', 'CICD'], description: 'Pick something')
         }
-        // stage("Build project"){
-        //     steps {
-        //         nodejs("node12"){
-        //             sh 'yarn install'
-        //         }
-        //     }
-        // }
-    
+        stage("Build project"){
+            steps {
+                echo "====++++something++++===="
+            }
+        }
+    }
+}
