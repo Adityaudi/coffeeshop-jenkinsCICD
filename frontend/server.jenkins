@@ -10,25 +10,34 @@ pipeline{
     }
 
     stages{
-        stage("Build project"){
+        stage("Build Project"){
             steps {
                 echo "====++++hello from build! please choose somethin thank you!++++===="
             }
         }
-        stage("Build docker"){
-            steps {
-                echo "====++++hello from build! please choose somethin thank you!++++===="
-            }
-        }
-        stage("Build docker image"){
+        stage("Build Testing"){
             when {
                 expression {
-                    params.BUILDPROJECT == 'OKE'
-                    params.RUNBUILD
+                    params.BUILDPROJECT == 'OKE' && params.RUNBUILD
                 }
             }
             steps {
-                sh 'docker build -t adityaudi/app-frontend:v1.0.0.1 .'
+                script {
+                    sshPublisher(
+                        publishers: [
+                            sshPublisherDesc(
+                                configName: 'build',
+                                verbose: false,
+                                transfers: [
+                                    sshTransfer(
+                                        execCommand: 'docker pull bukanebi/vuevue:master;',
+                                        execTimeout: 120000,
+                                    )
+                                ]
+                            )
+                        ]
+                    )
+                }
                 // echo 'success create image frontend'
                 // echo "Success build image frontend."
             }
