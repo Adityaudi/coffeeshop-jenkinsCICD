@@ -9,17 +9,19 @@ pipeline{
         booleanParam(name: 'RUNBUILD', defaultValue: false, description: 'YES,IM AGREE!')
     }
 
-    stages{
+    stages {
         stage("Build project"){
             steps {
                 echo "====++++hello from build! please choose somethin thank you!++++===="
             }
         }
-        stage("Build docker image"){
+        
+        stage("Build docker"){
             steps {
                 echo "====++++hello from build! please choose somethin thank you!++++===="
             }
         }
+
         stage("Build docker image"){
             when {
                 expression {
