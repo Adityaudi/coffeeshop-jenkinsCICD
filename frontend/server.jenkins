@@ -15,8 +15,6 @@ pipeline{
                 echo "====++++hello from build! please choose somethin thank you!++++===="
             }
         }
-    }
-    stages{
         stage("Build docker image"){
             steps {
                 echo "====++++hello from build! please choose somethin thank you!++++===="
@@ -35,6 +33,5 @@ pipeline{
                 // echo "Success build image frontend."
             }
         }
-    }
-    
+    }    
 }
