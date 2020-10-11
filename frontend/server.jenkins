@@ -1,0 +1,40 @@
+
+pipeline{
+    agent any
+    
+    parameters { 
+        choice(name: 'BUILD PROJECT', choices: ['NOT OKE!', 'OKE!'])
+        choice(name: 'DEVLOPMENT PROJECT', choices: ['NOT OKE!', 'OKE'])
+        text(name: 'Description', defaultValue: '')
+        booleanParam(name: 'YES, IM AGREE!', defaultValue: false,)
+    }
+
+    stages{
+        stage("Build project"){
+            steps {
+                echo "====++++hello from build! please choose somethin thank you!++++===="
+            }
+        }
+    }
+    stages{
+        stage("Build docker image"){
+            steps {
+                echo "====++++hello from build! please choose somethin thank you!++++===="
+            }
+        }
+        stage("Build docker image"){
+            when {
+                expression {
+                    params.BUILDPROJECT == 'OKE'
+                    params.YES, IM AGREE!
+                }
+            }
+            steps {
+                sh 'docker build -t adityaudi/app-frontend:v1.0.0.1 .'
+                // echo 'success create image frontend'
+                // echo "Success build image frontend."
+            }
+        }
+    }
+    
+}
