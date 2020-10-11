@@ -3,25 +3,23 @@ pipeline{
     agent any
     
     parameters { 
-        choice(name: 'BUILD PfelkOJECT', choices: ['NOT OKE!', 'OKE!'])
+        choice(name: 'BUILD PROJECT', choices: ['NOT OKE!', 'OKE!'])
         choice(name: 'DEVLOPMENT PROJECT', choices: ['NOT OKE!', 'OKE'])
         text(name: 'Description', defaultValue: '')
         booleanParam(name: 'RUNBUILD', defaultValue: false, description: 'YES,IM AGREE!')
     }
 
-    stages {
+    stages{
         stage("Build project"){
             steps {
                 echo "====++++hello from build! please choose somethin thank you!++++===="
             }
         }
-        
         stage("Build docker"){
             steps {
                 echo "====++++hello from build! please choose somethin thank you!++++===="
             }
         }
-
         stage("Build docker image"){
             when {
                 expression {
