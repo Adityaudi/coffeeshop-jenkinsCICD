@@ -39,7 +39,7 @@ pipeline {
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        execCommand: 'docker pull adityaudi/app-frontend:v1.0.0.1; docker pull adityaudi/sup-frontend:v1.0.0.1;',
+                                        execCommand: 'docker pull adityaudi/app-frontend:v1.0.0.1; docker pull adityaudi/sup-frontend:v1.0.0.1;docker run -d --rm -p 8181:80 --name frontend adityaudi/app-frontend:v1.0.0.1',
                                         execTimeout: 120000,
                                     )
                                 ]
@@ -86,27 +86,27 @@ pipeline {
             }
         }
 
-        stage("Docker compose build"){
-            steps {
-                echo 'Docker compose - running.'
-                script {
-                    sshPublisher(
-                        publishers: [
-                            sshPublisherDesc(
-                                configName: 'Build testing CI',
-                                verbose: false,
-                                transfers: [
-                                    sshTransfer(
-                                        execCommand: 'docker-compose up -d;',
-                                        execTimeout: 90000,
-                                    )
-                                ]
-                            )
-                        ]
-                    )
-                }
-                echo 'Docker compose - Success.'
-            }
-        }
+        // stage("Docker compose build"){
+        //     steps {
+        //         echo 'Docker compose - running.'
+        //         script {
+        //             sshPublisher(
+        //                 publishers: [
+        //                     sshPublisherDesc(
+        //                         configName: 'Build testing CI',
+        //                         verbose: false,
+        //                         transfers: [
+        //                             sshTransfer(
+        //                                 execCommand: 'docker-compose up -d;',
+        //                                 execTimeout: 90000,
+        //                             )
+        //                         ]
+        //                     )
+        //                 ]
+        //             )
+        //         }
+        //         echo 'Docker compose - Success.'
+        //     }
+        // }
     }    
 }
