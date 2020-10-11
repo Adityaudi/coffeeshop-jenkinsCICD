@@ -48,7 +48,9 @@ pipeline {
                 }
             }
             steps {
-                builderDocker.push("${env.GIT_BRANCH}")
+                script {
+                    builderDocker.push("${env.GIT_BRANCH}")
+                }
             }
         }
 
