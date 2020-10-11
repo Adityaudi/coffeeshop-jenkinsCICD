@@ -1,5 +1,6 @@
+def builderDocker
 
-pipeline{
+pipeline {
     agent any
     
     parameters { 
@@ -15,6 +16,42 @@ pipeline{
                 echo "====++++hello from build! please choose somethin thank you!++++===="
             }
         }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    builderDocker = docker.build("adityaudi/app-frontend:v1.0.0.1")
+                }
+            }
+        }
+        
+        stage('Run Testing') {
+            when {
+                expression {
+                    params.BUILDPROJECT == 'OKE' 
+                    params.RUNBUILD
+                }
+            }
+            steps {
+                script {
+                    builderDocker.inside {
+                        sh 'echo passed'
+                    }
+                }
+            }
+        }
+
+        stage("push image"){
+            when {
+                expression {
+                    params.BUILDPROJECT == 'OKE' 
+                    params.RUNBUILD
+                }
+                steps {
+                    builderDocker.push("${env.GIT_BRANCH}")
+                }
+            }
+        }
+
         stage("Build Testing"){
             when {
                 expression {
@@ -31,7 +68,7 @@ pipeline{
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        execCommand: 'docker pull bukanebi/vuevue:master;',
+                                        execCommand: 'adityaudi/app-frontend:v1.0.0.1;',
                                         execTimeout: 120000,
                                     )
                                 ]
@@ -39,8 +76,8 @@ pipeline{
                         ]
                     )
                 }
-                // echo 'success create image frontend'
-                // echo "Success build image frontend."
+                echo 'success create image frontend'
+                echo "Success build image frontend."
             }
         }
     }    
