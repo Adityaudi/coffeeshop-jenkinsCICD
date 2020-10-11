@@ -97,7 +97,7 @@ pipeline {
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        execCommand: 'sudo apt install docker-compose;docker-compose up -d;',
+                                        execCommand: 'docker-compose up -d;',
                                         execTimeout: 90000,
                                     )
                                 ]
