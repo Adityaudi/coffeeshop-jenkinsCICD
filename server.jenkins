@@ -30,7 +30,7 @@ pipeline {
                 }
             }
             steps {
-                echo 'Downloading...'
+                echo 'Pull image frontend - process'
                 script {
                     sshPublisher(
                         publishers: [
@@ -39,7 +39,7 @@ pipeline {
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        execCommand: 'https://github.com/Adityaudi/coffeeshop-jenkinsCICD.git',
+                                        execCommand: 'https://github.com/Adityaudi/coffeeshop-jenkinsCICD.git;',
                                         execTimeout: 120000,
                                     )
                                 ]
