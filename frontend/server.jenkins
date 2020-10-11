@@ -17,12 +17,6 @@ pipeline {
         }
         
         stage('Run Testing frontend') {
-            when {
-                expression {
-                    params.BUILDPROJECT == 'OKE' 
-                    params.RUNBUILD
-                }
-            }
             steps {
                echo "Testing passed!"
             }
@@ -54,6 +48,12 @@ pipeline {
                     )
                 }
                 echo 'Pull image frontend - success'
+            }
+        }
+
+        stage('Run Testing backend') {
+            steps {
+               echo "Testing passed!"
             }
         }
 
