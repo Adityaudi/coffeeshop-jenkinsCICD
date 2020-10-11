@@ -3,7 +3,7 @@ pipeline{
     agent any
     
     parameters { 
-        choice(name: 'BUILD PROJECT', choices: ['NOT OKE!', 'OKE!'])
+        choice(name: 'BUILD PfelkOJECT', choices: ['NOT OKE!', 'OKE!'])
         choice(name: 'DEVLOPMENT PROJECT', choices: ['NOT OKE!', 'OKE'])
         text(name: 'Description', defaultValue: '')
         booleanParam(name: 'RUNBUILD', defaultValue: false, description: 'YES,IM AGREE!')
