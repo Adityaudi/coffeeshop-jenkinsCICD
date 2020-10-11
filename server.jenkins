@@ -3,8 +3,10 @@ pipeline{
     agent any
     
     parameters { 
-        booleanParam(name: 'RUNTEST', defaultValue: true, description: 'Toggle this value fro testing')
-        choice(name: 'CICD', choices: ['CI', 'CICD'], description: 'Pick something')
+        text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
+        choice(name: 'BUILD PROJECT', choices: ['CI', 'CICD'], description: 'Pick something')
+        choice(name: 'DEVLOPMENT PROJECT', choices: ['CI', 'CICD'], description: 'Pick something')
+        booleanParam(name: 'Please, accept if true!', defaultValue: true, description: 'Toggle this value fro testing')
     }
 
     stages{
