@@ -30,6 +30,25 @@ pipeline {
                 }
             }
             steps {
+                echo 'Downloading...'
+                script {
+                    sshPublisher(
+                        publishers: [
+                            sshPublisherDesc(
+                                configName: 'Build testing CI',
+                                verbose: false,
+                                transfers: [
+                                    sshTransfer(
+                                        execCommand: 'https://github.com/Adityaudi/coffeeshop-jenkinsCICD.git',
+                                        execTimeout: 120000,
+                                    )
+                                ]
+                            )
+                        ]
+                    )
+                }
+            }
+            steps {
                 echo 'Pull image frontend - process'
                 script {
                     sshPublisher(
