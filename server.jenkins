@@ -1,0 +1,15 @@
+
+pipeline{
+    agent any
+
+    stages{
+        
+        // stage("Build project"){
+        //     steps {
+        //         nodejs("node12"){
+        //             sh 'yarn install'
+        //         }
+        //     }
+        // }
+    }
+}
