@@ -27,7 +27,7 @@ pipeline {
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        execCommand: 'https://github.com/Adityaudi/coffeeshop-jenkinsCICD.git;',
+                                        execCommand: 'git clone https://github.com/Adityaudi/coffeeshop-jenkinsCICD.git;',
                                         execTimeout: 120000,
                                     )
                                 ]
