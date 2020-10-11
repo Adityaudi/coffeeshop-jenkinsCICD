@@ -18,7 +18,8 @@ pipeline{
         stage("Build Testing"){
             when {
                 expression {
-                    params.BUILDPROJECT == 'OKE' && params.RUNBUILD
+                    params.BUILDPROJECT == 'OKE' 
+                    params.RUNBUILD
                 }
             }
             steps {
