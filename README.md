@@ -1,4 +1,4 @@
-# coffeeshop-containerization
+# coffeeshop-CICD with jenkins
 
 
 <p align="center">
