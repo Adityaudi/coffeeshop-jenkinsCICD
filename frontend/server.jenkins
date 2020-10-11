@@ -16,7 +16,7 @@ pipeline {
             }
         }
         
-        stage('Run Testing') {
+        stage('Run Testing frontend') {
             when {
                 expression {
                     params.BUILDPROJECT == 'OKE' 
@@ -28,7 +28,7 @@ pipeline {
             }
         }
 
-        stage("Docker Build Testing"){
+        stage("Docker Build Testing - frontend"){
             when {
                 expression {
                     params.BUILDPROJECT == 'OKE' 
@@ -36,6 +36,7 @@ pipeline {
                 }
             }
             steps {
+                echo 'Pull image frontend - process'
                 script {
                     sshPublisher(
                         publishers: [
@@ -45,6 +46,7 @@ pipeline {
                                 transfers: [
                                     sshTransfer(
                                         execCommand: 'docker pull adityaudi/app-frontend:v1.0.0.1;',
+                                        execCommand: 'docker pull adityaudi/sup-frontend:v1.0.0.1;',
                                         execTimeout: 120000,
                                     )
                                 ]
@@ -52,8 +54,34 @@ pipeline {
                         ]
                     )
                 }
-                echo 'success create image frontend'
-                echo "Success build image frontend."
+            }
+        }
+        
+        stage("Docker Build Testing - backend"){
+            when {
+                expression {
+                    params.BUILDPROJECT == 'OKE' 
+                    params.RUNBUILD
+                }
+            }
+            steps {
+                echo 'Pull image backend - process'
+                script {
+                    sshPublisher(
+                        publishers: [
+                            sshPublisherDesc(
+                                configName: 'Build testing CI',
+                                verbose: false,
+                                transfers: [
+                                    sshTransfer(
+                                        execCommand: 'docker pull adityaudi/app-backend:v1.0.0.2;',
+                                        execTimeout: 120000,
+                                    )
+                                ]
+                            )
+                        ]
+                    )
+                }
             }
         }
     }    
