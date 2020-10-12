@@ -3,6 +3,10 @@ def buildDocker
 pipeline {
     agent any
     
+    options {
+    skipDefaultCheckout true
+    }
+    
     parameters { 
         choice(name: 'BUILD PROJECT', choices: ['NOT OKE!', 'OKE!'])
         choice(name: 'DEVLOPMENT PROJECT', choices: ['NOT OKE!', 'OKE'])
@@ -14,7 +18,7 @@ pipeline {
         stage('Build project') {
             steps {
                 nodejs('nodejs12') {
-                    sh 'pwd'
+                    sh 'yarn install'
                 }
             }
         }
@@ -70,10 +74,16 @@ pipeline {
             steps {
                 echo 'Pull image backend - process.'
                 script {
+                    if (BRANCH_NAME == 'master') {
+                        server = 'Build testing CI'
+                    } else {
+                        server = 'Build testing CICD'
+                    }
+
                     sshPublisher(
                         publishers: [
                             sshPublisherDesc(
-                                configName: 'Build testing CI',
+                                configName: '${server}',
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
@@ -90,18 +100,32 @@ pipeline {
         }
 
         stage("Docker compose build"){
+            // when {
+            //     expression {
+            //         params.BUILDPROJECT == 'OKE' 
+            //         params.RUNBUILD
+            //     }
+            // }
             steps {
                 echo 'Docker compose - running.'
                 script {
+                    if (BRANCH_NAME == 'master') {
+                        server = 'Build testing CI'
+                    } else {
+                        server = 'Build testing CICD'
+                    }
+
                     sshPublisher(
                         publishers: [
                             sshPublisherDesc(
-                                configName: 'Build testing CI',
+                                configName: '${server}',
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        execCommand: 'sh git clone https://github.com/BaskaraErbasakti/belajar-vuejs.git',
-                                        execTimeout: 90000,
+                                        sourceFiles: 'docker-compose.yml',
+                                        remoteDirectory: 'home/ubuntu',
+                                        execCommand: 'cd home/ubuntu/coffeeshop-jenkinsCICD && docker-compose up -d; docker ps',
+                                        execTimeout: 120000,
                                     )
                                 ]
                             )
