@@ -1,3 +1,4 @@
+def buildDocker
 
 pipeline {
     agent any
@@ -12,13 +13,20 @@ pipeline {
     stages{
         stage("Build Project"){
             steps {
+                script {
+                    buildDocker = docker.build("adityaudi/app-frontend:v1.0.0.2")
+                }
                 echo "Build project passed!"
             }
         }
         
         stage('Run Testing frontend') {
             steps {
-               echo "Testing passed!"
+               script {
+                   buildDocker.inside {
+                       sh 'echo passed'
+                   }
+               }
             }
         }
 
