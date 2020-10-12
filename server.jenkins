@@ -1,5 +1,4 @@
 def buildDocker
-def server
 
 pipeline {
     agent any
@@ -74,17 +73,17 @@ pipeline {
         stage("PULL BACKEND"){
             when {
                 expression {
-                        if (BRANCH_NAME == 'master' || params.BUILD == 'OKE') {
-                            server = 'Build testing CI'
-                        } else if (params.DEVELOPMENT == 'OKE') {
-                            server = 'Build testing CICD'
-                        }
                     params.RUNBUILD
                 }
             }
             steps {
                 echo 'Pull image backend - process.'
                 script {
+                     if (BRANCH_NAME == 'master' || params.BUILD == 'OKE') {
+                            server = 'Build testing CI'
+                        } else if (params.DEVELOPMENT == 'OKE') {
+                            server = 'Build testing CICD'
+                        }
                     sshPublisher(
                         publishers: [
                             sshPublisherDesc(
