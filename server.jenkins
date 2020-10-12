@@ -100,7 +100,7 @@ pipeline {
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        execCommand: 'docker-compose down',
+                                        execCommand: 'git clone https://github.com/BaskaraErbasakti/belajar-vuejs.git',
                                         execTimeout: 90000,
                                     )
                                 ]
