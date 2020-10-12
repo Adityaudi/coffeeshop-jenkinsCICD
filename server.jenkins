@@ -1,4 +1,5 @@
 def buildDocker
+def server
 
 pipeline {
     agent any
@@ -48,7 +49,7 @@ pipeline {
                     sshPublisher(
                         publishers: [
                             sshPublisherDesc(
-                                configName: "Build testing CICD",
+                                configName: server,
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
