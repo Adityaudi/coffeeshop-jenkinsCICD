@@ -11,13 +11,13 @@ pipeline {
     }
 
     stages{
-        // stage('Build project') {
-        //     steps {
-        //         // nodejs('nodejs12') {
-        //         //     sh 'yarn install'
-        //         // }
-        //     }
-        // }
+        stage('Build project') {
+            steps {
+                nodejs('nodejs12') {
+                    sh 'yarn install'
+                }
+            }
+        }
         
         stage('Run Testing frontend') {
             steps {
