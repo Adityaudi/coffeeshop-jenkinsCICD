@@ -48,7 +48,7 @@ pipeline {
                     sshPublisher(
                         publishers: [
                             sshPublisherDesc(
-                                configName: "${server}",
+                                configName: "Build testing CICD",
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
