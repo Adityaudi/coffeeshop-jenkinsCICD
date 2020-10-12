@@ -97,7 +97,6 @@ pipeline {
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        sh 'pwd'
                                         execCommand: 'docker images',
                                         execTimeout: 90000,
                                     )
