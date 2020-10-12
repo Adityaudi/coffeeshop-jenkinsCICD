@@ -14,6 +14,7 @@ pipeline {
         stage("Build Project"){
             steps {
                 script {
+                    sh 'npm install'
                     buildDocker = docker.build("adityaudi/app-frontend:v1.0.0.2")
                 }
                 echo "Build project passed!"
