@@ -101,8 +101,8 @@ pipeline {
                                 transfers: [
                                     sshTransfer(
                                         sourceFiles: 'docker-compose.yml',
-                                        remoteDirectory: 'backend',
-                                        execCommand: 'cd backend && docker-compose up -d',
+                                        remoteDirectory: 'home/ubuntu',
+                                        execCommand: 'cd coffeeshop-jenkinsCICD && docker-compose up -d',
                                         execTimeout: 120000,
                                     )
                                 ]
