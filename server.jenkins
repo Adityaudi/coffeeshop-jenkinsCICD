@@ -31,20 +31,18 @@ pipeline {
 
         stage("Docker Build Testing - frontend"){
             when {
-                expression {
-                    params.BUILD == 'OKE' || params.DEVELOPMENT == 'OKE' 
+               script {
+                        if (BRANCH_NAME == 'master' && params.BUILD == 'OKE' ) {
+                            server = 'Build testing CI'
+                        } else if (params.DEVELOPMENT == 'OKE'  ) {
+                            server = 'Build testing CICD'
+                        }
+                    }
                     params.RUNBUILD
-                }
             }
             steps {
                 echo 'Pull image frontend - process.'
                 script {
-                    if (BRANCH_NAME == 'master') {
-                        server = 'Build testing CI'
-                    } else {
-                        server = 'Build testing CICD'
-                    }
-
                     sshPublisher(
                         publishers: [
                             sshPublisherDesc(
@@ -72,20 +70,18 @@ pipeline {
 
         stage("Docker Build Testing - backend"){
             when {
-                expression {
-                    params.BUILD == 'OKE' || params.DEVELOPMENT == 'OKE' 
+                script {
+                        if (BRANCH_NAME == 'master' && params.BUILD == 'OKE' ) {
+                            server = 'Build testing CI'
+                        } else if (params.DEVELOPMENT == 'OKE'  ) {
+                            server = 'Build testing CICD'
+                        }
+                    }
                     params.RUNBUILD
-                }
             }
             steps {
                 echo 'Pull image backend - process.'
                 script {
-                    if (BRANCH_NAME == 'master') {
-                        server = 'Build testing CI'
-                    } else {
-                        server = 'Build testing CICD'
-                    }
-
                     sshPublisher(
                         publishers: [
                             sshPublisherDesc(
@@ -121,8 +117,6 @@ pipeline {
             steps {
                 echo 'Docker compose - running.'
                 script {
-                    
-
                     sshPublisher(
                         publishers: [
                             sshPublisherDesc(
