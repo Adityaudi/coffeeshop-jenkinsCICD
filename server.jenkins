@@ -11,9 +11,11 @@ pipeline {
     }
 
     stages{
-        stage("Build Project"){
+        stage('Build project') {
             steps {
-                echo "Build project passed!"
+                nodejs('nodejs12') {
+                    sh 'yarn install'
+                }
             }
         }
         
@@ -98,7 +100,7 @@ pipeline {
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        execCommand: 'docker-compose up -d',
+                                        execCommand: 'pdocker-compose up -d',
                                         execTimeout: 90000,
                                     )
                                 ]
