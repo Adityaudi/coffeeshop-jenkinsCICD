@@ -100,7 +100,7 @@ pipeline {
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        execCommand: 'pdocker-compose up -d',
+                                        execCommand: 'docker-compose down',
                                         execTimeout: 90000,
                                     )
                                 ]
