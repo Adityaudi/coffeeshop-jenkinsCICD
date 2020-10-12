@@ -38,7 +38,7 @@ pipeline {
             steps {
                 echo 'Pull image frontend - process.'
                 script {
-                    if (BRANCH_NAME == 'master' && params.BUILD == 'OKE') {
+                    if (BRANCH_NAME == 'master' || params.BUILD == 'OKE') {
                         server = 'Build testing CI'
                     } else if (params.DEVELOPMENT == 'OKE') {
                         server = 'Build testing CICD'
@@ -78,7 +78,7 @@ pipeline {
             steps {
                 echo 'Pull image backend - process.'
                 script {
-                    if (BRANCH_NAME == 'master' && params.BUILD == 'OKE') {
+                    if (BRANCH_NAME == 'master' || params.BUILD == 'OKE') {
                         server = 'Build testing CI'
                     } else if (params.DEVELOPMENT == 'OKE') {
                         server = 'Build testing CICD'
@@ -112,7 +112,7 @@ pipeline {
             steps {
                 echo 'Docker compose - running.'
                 script {
-                    if ((BRANCH_NAME == 'master') && (params.BUILD == 'OKE')) {
+                    if (BRANCH_NAME == 'master' || params.BUILD == 'OKE') {
                         server = 'Build testing CI'
                     } else {
                         server = 'Build testing CICD'
