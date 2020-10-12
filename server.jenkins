@@ -15,7 +15,7 @@ pipeline {
     }
 
     stages{
-        stage('Build project') {
+        stage('BUILD') {
             steps {
                 nodejs('nodejs12') {
                     sh 'yarn install'
@@ -23,15 +23,16 @@ pipeline {
             }
         }
         
-        stage('Run Testing frontend') {
+        stage('TEST FRONTEND') {
             steps {
                echo "Testing passed!"
             }
         }
 
-        stage("Docker Build Testing - frontend"){
+        stage("PULL FRONTEND"){
             when {
-               script {
+                expression {
+                    script {
                         if (BRANCH_NAME == 'master' && params.BUILD == 'OKE' ) {
                             server = 'Build testing CI'
                         } else if (params.DEVELOPMENT == 'OKE'  ) {
@@ -39,6 +40,7 @@ pipeline {
                         }
                     }
                     params.RUNBUILD
+                }
             }
             steps {
                 echo 'Pull image frontend - process.'
@@ -62,15 +64,16 @@ pipeline {
             }
         }
 
-        stage('Run Testing backend') {
+        stage('TEST BACKEND') {
             steps {
                echo "Testing passed!"
             }
         }
 
-        stage("Docker Build Testing - backend"){
+        stage("PULL BACKEND"){
             when {
-                script {
+                expression {
+                    script {
                         if (BRANCH_NAME == 'master' && params.BUILD == 'OKE' ) {
                             server = 'Build testing CI'
                         } else if (params.DEVELOPMENT == 'OKE'  ) {
@@ -78,6 +81,7 @@ pipeline {
                         }
                     }
                     params.RUNBUILD
+                }
             }
             steps {
                 echo 'Pull image backend - process.'
@@ -101,7 +105,7 @@ pipeline {
             }
         }
 
-        stage("Docker compose build"){
+        stage("RUNNING"){
             when {
                 expression {
                     script {
