@@ -33,7 +33,7 @@ pipeline {
             when {
                 expression {
                     script {
-                        if (BRANCH_NAME == 'master' && params.BUILD == 'OKE') {
+                        if (BRANCH_NAME == 'master' || params.BUILD == 'OKE') {
                             server = 'Build testing CI'
                         } else if (params.DEVELOPMENT == 'OKE' ) {
                             server = 'Build testing CICD'
@@ -74,9 +74,9 @@ pipeline {
             when {
                 expression {
                     script {
-                        if (BRANCH_NAME == 'master' && params.BUILD == 'OKE') {
+                        if (BRANCH_NAME == 'master' || params.BUILD == 'OKE') {
                             server = 'Build testing CI'
-                        } else if (params.DEVELOPMENT == 'OKE'  ) {
+                        } else if (params.DEVELOPMENT == 'OKE') {
                             server = 'Build testing CICD'
                         }
                     }
@@ -109,7 +109,7 @@ pipeline {
             when {
                 expression {
                     script {
-                        if (BRANCH_NAME == 'master' && params.BUILD == 'OKE') {
+                        if (BRANCH_NAME == 'master' || params.BUILD == 'OKE') {
                             server = 'Build testing CI'
                         } else if (params.DEVELOPMENT == 'OKE'  ) {
                             server = 'Build testing CICD'
@@ -130,7 +130,7 @@ pipeline {
                                     sshTransfer(
                                         sourceFiles: 'docker-compose.yml',
                                         remoteDirectory: 'home/ubuntu',
-                                        execCommand: 'cd home/ubuntu/coffeeshop-jenkinsCICD && docker-compose up -d; docker ps',
+                                        execCommand: 'cd home/ubuntu/coffeeshop-jenkinsCICD || docker-compose up -d; docker ps',
                                         execTimeout: 120000,
                                     )
                                 ]
