@@ -74,13 +74,11 @@ pipeline {
         stage("PULL BACKEND"){
             when {
                 expression {
-                    script {
                         if (BRANCH_NAME == 'master' || params.BUILD == 'OKE') {
                             server = 'Build testing CI'
                         } else if (params.DEVELOPMENT == 'OKE') {
                             server = 'Build testing CICD'
                         }
-                    }
                     params.RUNBUILD
                 }
             }
