@@ -32,19 +32,18 @@ pipeline {
         stage("PULL FRONTEND"){
             when {
                 expression {
-                    script {
-                        if (BRANCH_NAME == 'master' || params.BUILD == 'OKE') {
-                            server = 'Build testing CI'
-                        } else if (params.DEVELOPMENT == 'OKE') {
-                            server = 'Build testing CICD'
-                        }
-                    }
                     params.RUNBUILD
                 }
             }
             steps {
                 echo 'Pull image frontend - process.'
                 script {
+                    if (BRANCH_NAME == 'master' && params.BUILD == 'OKE') {
+                        server = 'Build testing CI'
+                    } else if (params.DEVELOPMENT == 'OKE') {
+                        server = 'Build testing CICD'
+                    }
+
                     sshPublisher(
                         publishers: [
                             sshPublisherDesc(
@@ -79,11 +78,12 @@ pipeline {
             steps {
                 echo 'Pull image backend - process.'
                 script {
-                     if (BRANCH_NAME == 'master' && params.BUILD == 'OKE') {
-                            server = 'Build testing CI'
-                        } else if (params.DEVELOPMENT == 'OKE') {
-                            server = 'Build testing CICD'
-                        }
+                    if (BRANCH_NAME == 'master' && params.BUILD == 'OKE') {
+                        server = 'Build testing CI'
+                    } else if (params.DEVELOPMENT == 'OKE') {
+                        server = 'Build testing CICD'
+                    }
+
                     sshPublisher(
                         publishers: [
                             sshPublisherDesc(
@@ -106,19 +106,18 @@ pipeline {
         stage("RUNNING"){
             when {
                 expression {
-                    script {
-                        if (BRANCH_NAME == 'master' || params.BUILD == 'OKE') {
-                            server = 'Build testing CI'
-                        } else if (params.DEVELOPMENT == 'OKE'  ) {
-                            server = 'Build testing CICD'
-                        }
-                    }
                     params.RUNBUILD
                 }
             }
             steps {
                 echo 'Docker compose - running.'
                 script {
+                    if (BRANCH_NAME == 'master' && params.BUILD == 'OKE') {
+                        server = 'Build testing CI'
+                    } else if (params.DEVELOPMENT == 'OKE') {
+                        server = 'Build testing CICD'
+                    }
+
                     sshPublisher(
                         publishers: [
                             sshPublisherDesc(
