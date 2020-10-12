@@ -83,7 +83,7 @@ pipeline {
                     sshPublisher(
                         publishers: [
                             sshPublisherDesc(
-                                configName: '${server}',
+                                configName: "${server}",
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
@@ -118,7 +118,7 @@ pipeline {
                     sshPublisher(
                         publishers: [
                             sshPublisherDesc(
-                                configName: '${server}',
+                                configName: "${server}",
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
