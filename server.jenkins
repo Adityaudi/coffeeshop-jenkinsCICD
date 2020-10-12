@@ -8,8 +8,8 @@ pipeline {
     }
     
     parameters { 
-        choice(name: 'BUILD PROJECT', choices: ['NOT OKE!', 'OKE!'])
-        choice(name: 'DEVLOPMENT PROJECT', choices: ['NOT OKE!', 'OKE'])
+        choice(name: 'BUILD', choices: ['NOT OKE!', 'OKE!'])
+        choice(name: 'DEVELOPMENT', choices: ['NOT OKE!', 'OKE'])
         text(name: 'Description', defaultValue: '')
         booleanParam(name: 'RUNBUILD', defaultValue: false, description: 'YES,IM AGREE!')
     }
@@ -32,17 +32,23 @@ pipeline {
         stage("Docker Build Testing - frontend"){
             when {
                 expression {
-                    params.BUILDPROJECT == 'OKE' 
+                    params.BUILD == 'OKE' || params.DEVELOPMENT == 'OKE' 
                     params.RUNBUILD
                 }
             }
             steps {
                 echo 'Pull image frontend - process.'
                 script {
+                    if (BRANCH_NAME == 'master') {
+                        server = 'Build testing CI'
+                    } else {
+                        server = 'Build testing CICD'
+                    }
+
                     sshPublisher(
                         publishers: [
                             sshPublisherDesc(
-                                configName: 'Build testing CI',
+                                configName: "${server}",
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
@@ -67,7 +73,7 @@ pipeline {
         stage("Docker Build Testing - backend"){
             when {
                 expression {
-                    params.BUILDPROJECT == 'OKE' 
+                    params.BUILD == 'OKE' || params.DEVELOPMENT == 'OKE' 
                     params.RUNBUILD
                 }
             }
@@ -100,20 +106,22 @@ pipeline {
         }
 
         stage("Docker compose build"){
-            // when {
-            //     expression {
-            //         params.BUILDPROJECT == 'OKE' 
-            //         params.RUNBUILD
-            //     }
-            // }
+            when {
+                expression {
+                    script {
+                        if (BRANCH_NAME == 'master' && params.BUILD == 'OKE' ) {
+                            server = 'Build testing CI'
+                        } else if (BRANCH_NAME == 'dev' && params.DEVELOPMENT == 'OKE'  ) {
+                            server = 'Build testing CICD'
+                        }
+                    }
+                    params.RUNBUILD
+                }
+            }
             steps {
                 echo 'Docker compose - running.'
                 script {
-                    if (BRANCH_NAME == 'master') {
-                        server = 'Build testing CI'
-                    } else {
-                        server = 'Build testing CICD'
-                    }
+                    
 
                     sshPublisher(
                         publishers: [
