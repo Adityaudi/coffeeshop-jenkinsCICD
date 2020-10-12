@@ -41,7 +41,7 @@ services:
         container_name: postgresql
         image: postgres:latest
         ports:
-            - "1000:5432"
+            - "5432:5432"
         networks:
             - networkid
         volumes:
@@ -55,7 +55,7 @@ services:
         container_name: redis
         image: redis:alpine
         ports:
-            - "2000:6379"
+            - "6379:6379"
         networks:
             - networkid
         volumes:
