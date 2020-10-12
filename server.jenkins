@@ -35,7 +35,7 @@ pipeline {
                     script {
                         if (BRANCH_NAME == 'master' || params.BUILD == 'OKE') {
                             server = 'Build testing CI'
-                        } else if (params.DEVELOPMENT == 'OKE' ) {
+                        } else if (params.DEVELOPMENT == 'OKE') {
                             server = 'Build testing CICD'
                         }
                     }
@@ -79,7 +79,7 @@ pipeline {
             steps {
                 echo 'Pull image backend - process.'
                 script {
-                     if (BRANCH_NAME == 'master' || params.BUILD == 'OKE') {
+                     if (BRANCH_NAME == 'master' && params.BUILD == 'OKE') {
                             server = 'Build testing CI'
                         } else if (params.DEVELOPMENT == 'OKE') {
                             server = 'Build testing CICD'
