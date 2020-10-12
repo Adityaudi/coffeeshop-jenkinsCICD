@@ -114,7 +114,7 @@ pipeline {
                 script {
                     if (BRANCH_NAME == 'master' && params.BUILD == 'OKE') {
                         server = 'Build testing CI'
-                    } else if (params.DEVELOPMENT == 'OKE') {
+                    } else {
                         server = 'Build testing CICD'
                     }
 
