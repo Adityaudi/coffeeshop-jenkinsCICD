@@ -98,7 +98,7 @@ pipeline {
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        execCommand: 'docker ps',
+                                        execCommand: 'docker-compose up -d',
                                         execTimeout: 90000,
                                     )
                                 ]
