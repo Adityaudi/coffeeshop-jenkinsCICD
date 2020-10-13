@@ -43,7 +43,7 @@ pipeline {
                     } else if (params.DEVELOPMENT == 'OKE') {
                         server = 'Build testing CICD'
                     }
-
+                    
                     sshPublisher(
                         publishers: [
                             sshPublisherDesc(
@@ -117,7 +117,7 @@ pipeline {
                     } else {
                         server = 'Build testing CICD'
                     }
-
+                    sh 'apt install docker-compose'
                     sshPublisher(
                         publishers: [
                             sshPublisherDesc(
