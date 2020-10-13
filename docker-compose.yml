@@ -3,9 +3,9 @@ version: "3.3"
 services: 
     frontend: 
         container_name: frontend
-        image: adityaudi/app-frontend:v1.0.0.1
+        image: adityaudi/app-frontend:v2.0.0.1
         ports: 
-            - "8080:80"
+            - "80:80"
         networks:
             - networkid
         environment:
