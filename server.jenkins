@@ -112,8 +112,10 @@ pipeline {
             steps {
                 echo 'Docker compose - running.'
                 script {
-                    if (BRANCH_NAME == 'master' || params.BUILD == 'OKE') {
-                        server = 'Build testing CI'
+                    if (params.BUILD == 'OKE') {
+                        if (BRANCH_NAME == 'master'){
+                            server = 'Build testing CI'
+                        }
                     } else {
                         server = 'Build testing CICD'
                     }
